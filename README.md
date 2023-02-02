@@ -23,7 +23,7 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
 ## Setup PiTalk 4G  Via USB
 
-<img src ="" />
+<img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/PITALK%202G%20USB.png" />
 
 * We have also provided the USB feature in our PiTalk 2G HAT to use this HAT as dongle. For this you have to to install its ***USB driver*** provided in this Repository. For this download and unzip the zip file of it and ***install*** in your computer system.
 
