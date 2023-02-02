@@ -13,7 +13,7 @@ To Start working with our PiTalk 2G HAT, set-up your Raspberry Pi or RockPi by f
 * After setup your Pi board, attach the PiTalk 4G HAT on it and boot by providing compatible power supply.
 * Now, open the command prompt and type the following command to clone the current repository in your Pi-board.
 ```
-git clone .git
+git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 ```
 
 * After, downloading this repository you will see two directory in it. One is of ***Example code*** and 2nd one is of ***Library*** file.
