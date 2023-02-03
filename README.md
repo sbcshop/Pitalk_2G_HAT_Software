@@ -4,6 +4,25 @@
 
 The PiTalk 2G HAT is a handy, low-power Raspberry Pi HAT that features multi-communication functionalities such as GSM, GPRS, TCP, etc. It allows your Pi to easily make phone calls, send messages, connect to wireless networks, and so on. It is the most convenient IoT HAT that works with all variants of Raspberry Pi (model A, B and Zero). The users can also connect PiTalk with other iOS and Android devices as well. It is primarily designed to offer connection to your IoT projects and applications without requiring a Wi-Fi network or ethernet connections.
 
+## Key Features Of SIM868:
+
+* General
+  * Quad-band 850/900/1800/1900MHz
+  * GPRS multi-slot class 12/10
+  * GPRS mobile station class B
+  * Compliant to GSM phase 2/2+
+  * Class 4 (2 W @ 850/900MHz)
+  * Class 1 (1 W @ 1800/1900MHz)
+  * Dimensions: 17.6*15.7*2.3mm
+  * Weight: 1.5g
+  * Control via AT commands (3GPP TS 27.007, 27.005 and SIMCom enhanced AT Commands)
+  * Supply voltage range 5~18Vdc
+  * Low power consumption
+  * Operation temperature:-40℃ ~85℃
+
+
+
+
 <img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/PiTalk.png" /> 
 
 ## Setup PiTalk 2G HAT with RPi 
