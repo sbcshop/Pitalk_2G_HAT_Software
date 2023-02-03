@@ -1,7 +1,7 @@
 '''
 #------------------------------------------------------------------------
 #
-# This is a python Example code for PiTalk-4G HAT to make Call 
+# This is a python Example code for PiTalk-2G HAT to make Call 
 # Written by SB Components Ltd 
 #
 #==================================================================================
