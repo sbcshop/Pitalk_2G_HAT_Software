@@ -42,17 +42,16 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
 ## Setup PiTalk 4G  Via USB
 
+
+* You can command SIM868 also by providing the ***AT commands***  via USB com port. For this you have to connect PiTalk 2G HAT to your computer system by using micro usb cable as shon in below image:
+
 <img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/PITALK%202G%20USB.png" />
 
-* We have also provided the USB feature in our PiTalk 2G HAT to use this HAT as dongle. For this you have to to install its ***USB driver*** provided in this Repository. For this download and unzip the zip file of it and ***install*** in your computer system.
-
-* After setup it, insert SIM card and attach 2G antenna to it and plugin it in your system via USB type-C cable and press the ***PWRKEY*** button for 3-4seconds to activate the module, ***NETLIGHT*** will start blinking. If everything goes well it will connect as a cellular network in your system. You can also open the device manager to see ***COM Port *** of device showing as in below image:
+* For using our PiTalk 2G HAT directly with the computer system, insert the sim card, attach the 2G antenna and connect it to your system. After that you will get a com port as shom as shon below
 
 <img src ="" />
 
-<img src ="" />
-
-* After the succesfull connection to your PiTalk 2G HAT board you will be able to use your cellular network to connect with internet. 
+* After getting ***COM port*** you can communicate our PiTalk 2G HAT by using any ***serial communication softwatre such as XCTU*** for sending ***AT Commands*** to operate it.
 
 
 
