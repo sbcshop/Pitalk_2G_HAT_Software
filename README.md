@@ -20,7 +20,20 @@ The PiTalk 2G HAT is a handy, low-power Raspberry Pi HAT that features multi-com
   * Low power consumption
   * Operation temperature:-40℃ ~85℃
 
-
+* SMS
+  * Point to point MO and MT
+  * SMS cell broadcast
+  *Text and PDU mode
+  
+  
+* GPRS
+  *  GPRS data downlink transfer: max. 85.6 kbps
+  * GPRS data uplink transfer: max. 85.6 kbps
+  * Coding scheme: CS-1, CS-2, CS-3 and CS-4
+  * PAP protocols for PPP connect
+  * Integrate the TCP/IP protocol
+  * Support Packet Broadcast Control Channel (PBCCH) 
+  
 
 
 <img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/PiTalk.png" /> 
@@ -47,9 +60,9 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
 <img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/PITALK%202G%20USB.png" />
 
-* For using our PiTalk 2G HAT directly with the computer system, insert the sim card, attach the 2G antenna and connect it to your system. After that you will get a com port as shom as shon below
+* For using our PiTalk 2G HAT directly with the computer system, insert the sim card, attach the 2G antenna and connect it to your system. After that you will get a com port as shom as shon below:
 
-<img src ="" />
+<img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/Scr.png" />
 
 * After getting ***COM port*** you can communicate our PiTalk 2G HAT by using any ***serial communication softwatre such as XCTU*** for sending ***AT Commands*** to operate it.
 
