@@ -5,17 +5,17 @@ import time
 
 ser = serial.Serial('/dev/ttyS0',115200)
 ser.flushInput()
-power_key = 23
+power_key = 4
 rec_buff = ''
 
-class eg25(object):
+class SIM868(object):
     def __init__(self,power_key):
         self.power_key = power_key
         self.ser = serial.Serial('/dev/ttyS0',115200)
         self.ser.flushInput()
         
     def power_on(self,power_key):
-        print('SIM7600X is starting:')
+        print('SIM868 is starting:')
         self.GPIO.setmode(GPIO.BCM)
         self.GPIO.setwarnings(False)
         self.GPIO.setup(power_key,self.GPIO.OUT)
@@ -25,10 +25,10 @@ class eg25(object):
         self.GPIO.output(power_key,self.GPIO.LOW)
         time.sleep(20)
         self.ser.flushInput()
-        print('SIM7600X is ready')
+        print('SIM868 is ready')
 
     def power_down(self,power_key):
-        print('SIM7600X is loging off:')
+        print('SIM868 is loging off:')
         GPIO.output(power_key,GPIO.HIGH)
         time.sleep(3)
         GPIO.output(power_key,GPIO.LOW)
