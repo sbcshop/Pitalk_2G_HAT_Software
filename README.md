@@ -53,7 +53,7 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 * In examples Directory there are some example codes to use the different functionality of PiTalk HAT you have ***move out the example file*** which you want to run from the ***Examples directory*** and after that run the code by make some editing if require.
 
 
-## Setup PiTalk 4G  Via USB
+## Setup PiTalk 2G  Via USB
 
 
 * You can command SIM868 also by providing the ***AT commands***  via USB com port. For this you have to connect PiTalk 2G HAT to your computer system by using micro usb cable as shon in below image:
@@ -84,6 +84,13 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
  ![PiTalk](https://cdn.shopify.com/s/files/1/1217/2104/products/PiTalk_-_Modular_SmartPhone_for_Raspberry_Pi_5.png?v=1528805795&width=400)
  
+ *[USB Dongle 4G]()
+
+ ![USB Dongle 4G]()
+ 
+  *[PiTalk 4G]()
+
+ ![PiTalk 4G]()
  
 
 ## Product License
