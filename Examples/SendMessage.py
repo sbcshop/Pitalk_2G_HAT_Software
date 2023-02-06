@@ -40,5 +40,5 @@ text_message = 'Hello from Ptalk 2G' #Enter your text message want to send
 
 
 
-Send_msg = PiTalk_2G.sim868().SendSMessage(phone_number, text_message) #Uncomment this code line to send text message
+Send_msg = PiTalk_2G.SIM868().SendSMessage(phone_number, text_message) #Uncomment this code line to send text message
 
