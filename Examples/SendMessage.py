@@ -1,7 +1,7 @@
 '''
 #------------------------------------------------------------------------
 #
-# This is a python Example code for PiTalk-4G HAT to Send Text message
+# This is a python Example code for PiTalk-2G HAT to Send Text message
 # Written by SB Components Ltd 
 #
 #==================================================================================
