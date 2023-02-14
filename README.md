@@ -98,9 +98,9 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
  ![PiTalk](https://cdn.shopify.com/s/files/1/1217/2104/products/PiTalk_-_Modular_SmartPhone_for_Raspberry_Pi_5.png?v=1528805795&width=400)
  
- *[USB Dongle 4G]()
+ *[Pitalk 4G Dongle ](https://shop.sb-components.co.uk/products/pitalk-4g-iot-dongle)
 
- ![USB Dongle 4G](https://shop.sb-components.co.uk/products/pitalk-4g-iot-dongle)
+ ![PiTalk 4G Dongle](https://cdn.shopify.com/s/files/1/1217/2104/products/01_3e671c5f-8084-4f9b-9e84-0ffa360de66f.png?v=1675769585&width=700)
  
   *[PiTalk 4G]()
 
