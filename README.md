@@ -40,6 +40,9 @@ The PiTalk 2G HAT is a handy, low-power Raspberry Pi HAT that features multi-com
 
 ## Setup PiTalk 2G HAT with RPi 
 
+* Connect Jumper wire as per the image
+<img src = "https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/Pitalk%202G.png"/>
+
 To Start working with our PiTalk 2G HAT, set-up your Raspberry Pi or RockPi by flashing their os file and boot it, for this [click here](https://rockpi.eu/Rockpi4/downloads).
 
 * After setup your Pi board, attach the PiTalk 4G HAT on it and boot by providing compatible power supply.
