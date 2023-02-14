@@ -53,8 +53,7 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
 * After, downloading this repository you will see two directory in it. One is of ***Example code*** and 2nd one is of ***Library*** file.
 * Now, open the both Example and Library directory. To open these files make sure you have python installed in your Pi board.
-* In examples Directory there are some example codes to use the different functionality of PiTalk HAT you have ***move out the example file*** which you want to run from the ***Examples directory*** and after that run the code by make some editing if require.
-
+* In examples Directory there are some example codes to use the different functionality of PiTalk HAT like call, send message and gps etc
 
 ## Setup PiTalk 2G  Via USB
 
