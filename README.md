@@ -72,6 +72,7 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 ## Documentation
 
 * [PiTalk-2G HAT Hardware](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware)
+*  [SIM800 Series bluetooth](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_Bluetooth.pdf)
 * [Getting Started with Raspberry Pi](https://www.raspberrypi.com/documentation/computers/getting-started.html)
 * [Raspberry Pi Pico Official website](https://www.raspberrypi.com/documentation/microcontrollers/)
 * [Raspberry Pi Datasheet](https://www.raspberrypi.com/documentation/computers/compute-module.html)
