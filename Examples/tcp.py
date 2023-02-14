@@ -33,14 +33,16 @@
 import RPi.GPIO as GPIO
 import serial
 import time
-from Library import PiTalk_2G
+import sys
+sys.path.insert(0,'/home/pi/Desktop/Pitalk_2G_HAT_Software-main/Library')
+import PiTalk_2G
 
-
+info = "hello world"
 Port = 80              #Enter Port
 ServerIP = ''          #Enter your server IP
 APN = 'airtelgprs.com' #Enter your APN 
 
                 
-tcp  = PiTalk_2G.SIM868().TCP(ServerIP, Port, APN,5)                  #Uncomment this code line to use funtionality of tcp
-
+tcp  = PiTalk_2G.SIM868()
+tcp.tcp(info,ServerIP, Port, APN)  
 
