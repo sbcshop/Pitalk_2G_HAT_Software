@@ -32,28 +32,27 @@ import RPi.GPIO as GPIO
 import serial
 import time
 
-
 ser = serial.Serial('/dev/ttyS0',115200)
 ser.flushInput()
 power_key = 4
 rec_buff = ''
 
 class SIM868(object):
-    def __init__(self,power_key):
+    def __init__(self):
         self.power_key = power_key
         self.ser = serial.Serial('/dev/ttyS0',115200)
         self.ser.flushInput()
         
     def power_on(self,power_key):
         print('SIM868 is starting:')
-        self.GPIO.setmode(GPIO.BCM)
-        self.GPIO.setwarnings(False)
-        self.GPIO.setup(power_key,self.GPIO.OUT)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+        GPIO.setup(power_key,GPIO.OUT)
         time.sleep(0.1)
-        self.GPIO.output(power_key,self.GPIO.HIGH)
+        GPIO.output(power_key,GPIO.HIGH)
         time.sleep(2)
-        self.GPIO.output(power_key,self.GPIO.LOW)
-        time.sleep(20)
+        GPIO.output(power_key,GPIO.LOW)
+        time.sleep(5)
         self.ser.flushInput()
         print('SIM868 is ready')
 
@@ -62,24 +61,20 @@ class SIM868(object):
         GPIO.output(power_key,GPIO.HIGH)
         time.sleep(3)
         GPIO.output(power_key,GPIO.LOW)
-        time.sleep(18)
+        time.sleep(5)
         print('Good bye')
-'''
-    try:
-        power_on(power_key)
-        print('Sending Short Message Test:')
-        SendMessage(phone_number,text_message)
-        print('Receive Short Message Test:\n')
-        print('Please send message to phone ' + phone_number)
-        #ReceiveMessage()
-        #power_down(power_key)
-    except :
-        if ser != None:
-            ser.close()
-        GPIO.cleanup()   
-'''
 
-    def send_at(self,command,back,timeout):
+    def wait_resp_info(self,timeout=3000):
+            self.prvmills = time.monotonic()
+            info = b""
+            while (time.monotonic()-self.prvmills) < (timeout/1000):
+                if self.ser.in_waiting:
+                    info = b"".join([info, self.ser.read(1)])
+            print(info.decode())
+            return info
+
+
+    def send_at(self,command,back,timeout=1):
         rec_buff = ''
         self.ser.write((command+'\r\n').encode())
         time.sleep(timeout)
@@ -101,16 +96,16 @@ class SIM868(object):
         self.send_at("AT+CMGF=1","OK",1)
         print("Sending Short Message")
         self.answer = self.send_at("AT+CMGS=\""+phone_number+"\"",">",2)
-        if 1 == answer:
+        if 1 == self.answer:
             self.ser.write(text_message.encode())
             self.ser.write(b'\x1A')
             self.answer = self.send_at('','OK',20)
-        if 1 == answer:
-            print('send successfully')
+            if 1 == self.answer:
+                print('send successfully')
+            else:
+                print('error')
         else:
-            print('error')
-        else:
-            print('error%d'%answer)
+            print('error%d'%self.answer)
 
     def ReceiveMessage(self):
         self.power_on(power_key)
@@ -130,56 +125,95 @@ class SIM868(object):
         return True
 
 
-    def Call(self, phone_number,time):
+    def Call(self, phone_number,time_1):
         self.power_on(power_key)
         self.send_at('ATD'+phone_number+';','OK',1)
-        time.sleep(time)
+        time.sleep(time_1)
         self.ser.write('AT+CHUP\r\n'.encode())
         print('Call disconnected')
-        
-    def TCP(self):
-        self.power_on(power_key)
-        self.send_at('AT+CSQ','OK',1)
-        self.send_at('AT+CREG?','+CREG: 0,1',1)
-        self.send_at('AT+CPSI?','OK',1)
-        self.send_at('AT+CGREG?','+CGREG: 0,1',0.5)
-        self.send_at('AT+CGSOCKCONT=1,\"IP\",\"'+APN+'\"','OK',1)
-        self.send_at('AT+CSOCKSETPN=1', 'OK', 1)
-        self.send_at('AT+CIPMODE=0', 'OK', 1)
-        self.send_at('AT+NETOPEN', '+NETOPEN: 0',5)
-        self.send_at('AT+IPADDR', '+IPADDR:', 1)
-        self.send_at('AT+CIPOPEN=0,\"TCP\",\"'+ServerIP+'\",'+Port,'+CIPOPEN: 0,0', 5)
-        self.send_at('AT+CIPSEND=0,', '>', 2)#If not sure the message number,write the command like this: AT+CIPSEND=0, (end with 1A(hex))
-        self.ser.write(Message.encode())
-        if 1 == send_at(b'\x1a'.decode(),'OK',5):
-            print('send message successfully!')
-            self.send_at('AT+CIPCLOSE=0','+CIPCLOSE: 0,0',15)
-            self.send_at('AT+NETCLOSE', '+NETCLOSE: 0', 1)
 
- 
-    def gps_positioning(self):
+  
+    # TCP
+    def tcp(self,info,ServerIP, Port, APN):
+            self.power_on(power_key)
+            self.send_at('AT+CIPSHUT', 'OK')
+            self.send_at("AT+CSQ", "OK")
+            self.send_at("AT+CREG?", "OK")
+            self.send_at('AT+CGATT?', 'OK')
+            self.send_at("AT+CSTT=\""+APN+"\"",'OK',5)
+            self.send_at('AT+CIICR', 'OK')
+            self.send_at('AT+CIFSR', 'OK')
+            self.send_at('AT+CIPSTART=\"TCP\",\"'+ServerIP+'\",'+Port,'\"', 'OK')
+            self.send_at('AT+CIPSEND', ">",5)
+            self.self.ser.write(info.encode())
+            self.ser.write(hexstr_to_str("1A").encode())
+
+                     
+    # HTTP GPS
+    def gps(self):
         self.power_on(power_key)
         rec_null = True
         self.answer = 0
         print('Start GPS session...')
         rec_buff = ''
-        self.send_at('AT+CGPS=1,1','OK',1)
+        self.send_at('AT+CGNSPWR=1,1','OK',1)
         time.sleep(2)
-        while rec_null:
-            
-            answer = self.send_at('AT+CGPSINFO','+CGPSINFO: ',1)
-            if 1 == self.answer:
-                self.answer = 0
-                if ',,,,,,' in rec_buff:
-                    print('GPS is not ready')
-                    rec_null = False
-                    time.sleep(1)
+        for i in range(1, 10):
+            self.ser.write(bytearray(b'AT+CGNSINF\r\n'))
+            rec_buff = self.wait_resp_info()
+            if ',,,,' in rec_buff.decode():
+                print('GPS is not ready')
+                #print(rec_buff.decode())
+                if i >= 9:
+                    print('GPS positioning failed, please check the GPS antenna!\r\n')
+                    self.send_at('AT+CGNSPWR=0', 'OK')
+                else:
+                    time.sleep(2)
+                    continue
             else:
-                print('error %d'%self.answer)
-                rec_buff = ''
-                self.send_at('AT+CGPS=0','OK',1)
-                return False
-                time.sleep(1.5)
+                if count <= 3:
+                    count += 1
+                    print('GPS info:')
+                    print(rec_buff.decode())
+                else:
+                    self.send_at('AT+CGNSPWR=0', 'OK')
+                    break
 
+
+    # HTTP GET 
+    def http_get(self,get_server):
+        self.power_on(power_key)
+        self.send_at('AT+HTTPINIT', 'OK')
+        self.send_at('AT+HTTPPARA=\"CID\",1', 'OK')
+        self.send_at('AT+HTTPPARA=\"URL\",\"'+get_server[0]+get_server[1]+'\"', 'OK')
+        if self.send_at('AT+HTTPACTION=0', '200', 5000):
+            self.ser.write(bytearray(b'AT+HTTPREAD\r\n'))
+            rec_buff = wait_resp_info(8000)
+            print("resp is :", rec_buff.decode())
+        else:
+            print("Get HTTP failed, please check and try again\n")
+        send_at('AT+HTTPTERM', 'OK')
+
+
+    # HTTP POST 
+    def http_post(self,post_server,post_data,content_type):
+        self.power_on(power_key)
+        self.send_at('AT+HTTPINIT', 'OK')
+        self.send_at('AT+HTTPPARA=\"CID\",1', 'OK')
+        self.send_at('AT+HTTPPARA=\"URL\",\"'+post_server[0]+post_server[1]+'\"', 'OK')
+        self.send_at('AT+HTTPPARA=\"CONTENT\",\"' + content_type + '\"', 'OK')
+        if self.send_at('AT+HTTPDATA=62,8000', 'DOWNLOAD', 3):
+            self.ser.write(post_data.encode())
+            time.sleep(10)
+            rec_buff = self.wait_resp_info()
+            if 'OK' in rec_buff.decode():
+                print("UART data is read!\n")
+            if self.send_at('AT+HTTPACTION=1', '200', 8):
+                print("POST successfully!\n")
+            else:
+                print("POST failed\n")
+            self.send_at('AT+HTTPTERM', 'OK')
+        else:
+            print("HTTP Post failed，please try again!\n")
         
    
