@@ -102,9 +102,9 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
  ![PiTalk 4G Dongle](https://cdn.shopify.com/s/files/1/1217/2104/products/01_3e671c5f-8084-4f9b-9e84-0ffa360de66f.png?v=1675769585&width=700)
  
-  *[PiTalk 4G]()
+  *[PiTalk 4G HAT](https://shop.sb-components.co.uk/products/pitalk-4g-iot-hat-1)
 
- ![PiTalk 4G]()
+ ![PiTalk 4G HAT ](https://cdn.shopify.com/s/files/1/1217/2104/products/01_6a24859c-6570-4798-9525-3a284213c539.png?v=1674820164&width=700)
  
 
 ## Product License
