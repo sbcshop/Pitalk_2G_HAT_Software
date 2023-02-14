@@ -100,7 +100,7 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
  
  *[USB Dongle 4G]()
 
- ![USB Dongle 4G]()
+ ![USB Dongle 4G](https://shop.sb-components.co.uk/products/pitalk-4g-iot-dongle)
  
   *[PiTalk 4G]()
 
