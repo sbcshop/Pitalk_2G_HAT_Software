@@ -58,7 +58,7 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 
 * You can command SIM868 also by providing the ***AT commands***  via USB com port. For this you have to connect PiTalk 2G HAT to your computer system by using micro usb cable as shon in below image:
 
-<img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/PITALK%202G%20USB.png" />
+<img src ="https://github.com/sbcshop/Pitalk_2G_HAT_Software/blob/main/images/PITALK%202G%20USB.jpg" />
 
 * For using our PiTalk 2G HAT directly with the computer system, insert the sim card, attach the 2G antenna and connect it to your system. After that you will get a com port as shom as shon below:
 
