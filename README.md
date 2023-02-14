@@ -72,7 +72,16 @@ git clone .git https://github.com/sbcshop/Pitalk_2G_HAT_Software
 ## Documentation
 
 * [PiTalk-2G HAT Hardware](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware)
-*  [SIM800 Series bluetooth](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_Bluetooth.pdf)
+* [SIM800 Series bluetooth](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_Bluetooth.pdf)
+* [SIM800 Series GSM](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_GSM_Location.pdf)
+* [SIM800 Series IP](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_IP.pdf)
+* [SIM800 Series MMS](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_MMS.pdf)
+* [SIM800 Series MQTT](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_MQTT.pdf)
+* [SIM800 Series NTP](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_NTP.pdf)
+* [SIM800 Series PCM](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_PCM.pdf)
+* [SIM800 Series SSL](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_SSL.pdf)
+* [SIM800 Series TCP IP](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM800_Series_TCPIP.pdf)
+* [SIM800 Series GNSS](https://github.com/sbcshop/Pitalk_2G_HAT_Hardware/blob/main/Documents/SIM868_Series_GNSS.pdf)
 * [Getting Started with Raspberry Pi](https://www.raspberrypi.com/documentation/computers/getting-started.html)
 * [Raspberry Pi Pico Official website](https://www.raspberrypi.com/documentation/microcontrollers/)
 * [Raspberry Pi Datasheet](https://www.raspberrypi.com/documentation/computers/compute-module.html)
