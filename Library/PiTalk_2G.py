@@ -43,18 +43,26 @@ class SIM868(object):
         self.ser = serial.Serial('/dev/ttyS0',115200)
         self.ser.flushInput()
         
-    def power_on(self,power_key):
-        print('SIM868 is starting:')
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        GPIO.setup(power_key,GPIO.OUT)
-        time.sleep(0.1)
-        GPIO.output(power_key,GPIO.HIGH)
-        time.sleep(2)
-        GPIO.output(power_key,GPIO.LOW)
-        time.sleep(5)
-        self.ser.flushInput()
-        print('SIM868 is ready')
+    def power_on(self, power_key):
+        for attempt in range(4):  # Try 4 times
+            print(f'SIM868 is starting (Attempt {attempt + 1})...')
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setwarnings(False)
+            GPIO.setup(power_key, GPIO.OUT)
+            time.sleep(0.1)
+            GPIO.output(power_key, GPIO.HIGH)
+            time.sleep(3)
+            GPIO.output(power_key, GPIO.LOW)
+            time.sleep(1)
+            self.ser.flushInput()
+
+            # Check if module is responsive
+            if self.send_at('AT', 'OK', 1) == 1:
+                print('SIM868 started successfully')
+                return True
+
+        print('Failed to start SIM868 after 4 attempts')
+        return False
 
     def power_down(self,power_key):
         print('SIM868 is loging off:')
@@ -65,30 +73,65 @@ class SIM868(object):
         print('Good bye')
 
     def wait_resp_info(self,timeout=3000):
-            self.prvmills = time.monotonic()
-            info = b""
-            while (time.monotonic()-self.prvmills) < (timeout/1000):
-                if self.ser.in_waiting:
-                    info = b"".join([info, self.ser.read(1)])
-            print(info.decode())
-            return info
+        self.prvmills = time.monotonic()
+        info = b""
+        while (time.monotonic()-self.prvmills) < (timeout/1000):
+            if self.ser.in_waiting:
+                info = b"".join([info, self.ser.read(1)])
+        print(info.decode())
+        return info
 
 
     def send_at(self,command,back,timeout=1):
         rec_buff = ''
         self.ser.write((command+'\r\n').encode())
         time.sleep(timeout)
+        
+            
         if self.ser.inWaiting():
             time.sleep(0.01 )
             rec_buff = self.ser.read(self.ser.inWaiting())
+            
         if back not in rec_buff.decode():
             print(command + ' ERROR')
             print(command + ' back:\t' + rec_buff.decode())
             return 0
-        else:
+        else:        
             print(rec_buff.decode())
             return 1
-    
+
+    def network_check(self):
+        rec_buff = ''
+        self.ser.write(('AT+CSQ'+'\r\n').encode())
+        time.sleep(1)
+        
+        if self.ser.inWaiting():
+            time.sleep(0.01 )
+            rec_buff = self.ser.read(self.ser.inWaiting())
+            
+        if "+CSQ" not in rec_buff.decode():
+            print(command + ' ERROR')
+            print(command + ' back:\t' + rec_buff.decode())
+        else:
+            print(rec_buff.decode())
+        
+        self.ser.write(('AT+CREG?'+'\r\n').encode())
+        time.sleep(1)
+        
+        if self.ser.inWaiting():
+            time.sleep(0.01 )
+            rec_buff = self.ser.read(self.ser.inWaiting())
+            
+        if "+CREG" not in rec_buff.decode():
+            print(command + ' ERROR')
+            print(command + ' back:\t' + rec_buff.decode())
+        else:
+            print(rec_buff.decode())
+            network_state = rec_buff.decode()
+            if "+CREG: 0,2" in network_state:
+                print("SIM not Registered! Call may be affected")
+       
+       
     
     def SendSMessage(self,phone_number,text_message):
         self.power_on(power_key)
@@ -125,28 +168,44 @@ class SIM868(object):
         return True
 
 
-    def Call(self, phone_number,time_1):
-        self.power_on(power_key)
+    def Call(self, phone_number,_time):
+        response = self.send_at('AT','OK',1)
+        print(f"Response: {response}")
+        
+        if response == 0:
+            print("Power ON Module!")
+            if not self.power_on(power_key):
+                print('Failed to power on the module.')
+                return
+            time.sleep(0.2)
+        else:
+            print("SIM868 Module Ready!")
+            time.sleep(0.2)
+        
+        response = self.network_check()
+        print(f"Response: {response}")
+        time.sleep(0.5)
+        
         self.send_at('ATD'+phone_number+';','OK',1)
-        time.sleep(time_1)
+        time.sleep(_time)
         self.ser.write('AT+CHUP\r\n'.encode())
         print('Call disconnected')
 
   
     # TCP
     def tcp(self,info,ServerIP, Port, APN):
-            self.power_on(power_key)
-            self.send_at('AT+CIPSHUT', 'OK')
-            self.send_at("AT+CSQ", "OK")
-            self.send_at("AT+CREG?", "OK")
-            self.send_at('AT+CGATT?', 'OK')
-            self.send_at("AT+CSTT=\""+APN+"\"",'OK',5)
-            self.send_at('AT+CIICR', 'OK')
-            self.send_at('AT+CIFSR', 'OK')
-            self.send_at('AT+CIPSTART=\"TCP\",\"'+ServerIP+'\",'+Port,'\"', 'OK')
-            self.send_at('AT+CIPSEND', ">",5)
-            self.self.ser.write(info.encode())
-            self.ser.write(hexstr_to_str("1A").encode())
+        self.power_on(power_key)
+        self.send_at('AT+CIPSHUT', 'OK')
+        self.send_at("AT+CSQ", "OK")
+        self.send_at("AT+CREG?", "OK")
+        self.send_at('AT+CGATT?', 'OK')
+        self.send_at("AT+CSTT=\""+APN+"\"",'OK',5)
+        self.send_at('AT+CIICR', 'OK')
+        self.send_at('AT+CIFSR', 'OK')
+        self.send_at('AT+CIPSTART=\"TCP\",\"'+ServerIP+'\",'+Port,'\"', 'OK')
+        self.send_at('AT+CIPSEND', ">",5)
+        self.self.ser.write(info.encode())
+        self.ser.write(hexstr_to_str("1A").encode())
 
                      
     # HTTP GPS
@@ -216,4 +275,3 @@ class SIM868(object):
         else:
             print("HTTP Post failed，please try again!\n")
         
-   
